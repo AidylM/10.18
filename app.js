@@ -73,7 +73,7 @@ function show_home(){
     tag("canvas").innerHTML=` 
     <div class="center-screen">
     
-    <p><img height="${window.innerHeight * .6}" src="images/brookers-logo.png"></p>
+    <p><img height="${window.innerHeight * .6}" src="images/Whole Child Therapy - Logo (1).webp"></p>
     <div style="text-align:center"></div>
     
     
