@@ -49,6 +49,7 @@ const authenticated_menu=[
     //the remaining menu items are added
     {label:"Toy Inventory Summary",home:"Inventory",function:"navigate({fn:'show_inventory_summary'})", roles:["owner","administrator"]},
     {label:"Check Toys In",function:"navigate({fn:'check_toys_in)'})"},
+    {label:"Check Toys Out",function:"navigate({fn:'check_toys_out)'})"},
     {label:"Employee List",function:"navigate({fn:'employee_list'})"},
     {label:"Admin Tools",id:"menu2", roles:["manager","owner","administrator"], menu:[
         {label:"Update User",function:"update_user()",panel:"update_user"},
