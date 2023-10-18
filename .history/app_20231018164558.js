@@ -55,7 +55,7 @@ const authenticated_menu=[
     ]},
 
 ]
-//unnecessary comment
+
 
 function show_home(){
     
