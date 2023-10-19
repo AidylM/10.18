@@ -58,6 +58,9 @@ const authenticated_menu=[
 ]
 //unnecessary comment
 
+
+
+
 function show_home(){
     
     //builds the menu for the home screen
@@ -97,6 +100,57 @@ async function show_locations(){
     //here the HTML of the page is configured to display the shared view in airtable.
     tag("canvas").innerHTML=`<div class="center-screen"><iframe class="airtable-embed" src="https://airtable.com/embed/${show_locations_share}?backgroundColor=cyan" frameborder="0" onmousewheel="" width="${width}" height="500" style="background-color: white; border: 1px solid #ccc;"></iframe></div>`
     hide_menu()
+}
+
+async function toy_list(){
+    // create HTML div for data
+
+    tag("canvas").innerHTML= `
+    <div class="page">
+
+    <h2> List of Toys </h2>
+    <div id="toy_list_panel">
+    <i class="fas fa-spinner fa-pulse"></i>
+    </div>
+    </div>
+
+    `
+    
+
+    const response = await server_request({mode:"get_toys"})
+
+    if (response.status==='success'){
+        //we got data back
+
+        const html = ['<table border="2"><tr>']
+        html.push('<th>Toy</th>')
+        html.push('<th>Bin</th>')
+        html.push('<th>Tags</th>')
+        html.push('<th>Quantity</th>')
+        html.push('<th>Condition</th>')
+        html.push('<th>Category</th>')
+        html.push('</tr>')
+
+        for(const record of response.records){
+            html.push('<tr>')
+            html.push(`<td>${record.fields.Toy}</td>`)
+            html.push(`<td>${record.fields.Bin}</td>`)
+            html.push(`<td>${record.fields.Tags}</td>`)
+            html.push(`<td>${record.fields.Quantity}</td>`)
+            html.push(`<td>${record.fields.Condition}</td>`)
+            html.push(`<td>${record.fields.Category}</td>`)
+            html.push('</tr>')
+        }   
+
+
+        tag("toy_list_panel").innerHTML = html.join("")
+
+    }else{
+        tag("toy_list_panel").innerHTML = "There was an error getting the task data"
+    }
+
+
+    
 }
 
 async function request_time_off(){
@@ -321,7 +375,7 @@ async function show_inventory_summary(params){
     
     const response=await server_request({
         mode:"get_inventory_summary",
-        filter:"list='Ice Cream'",
+        filter:"Bin='Toy'",
         store:user_data.store,
     })
     tag("inventory-message").innerHTML=''
@@ -339,7 +393,7 @@ async function show_inventory_summary(params){
         const header=[`
         <table class="inventory-table">
             <tr>
-            <th class="sticky">Flavor</th>
+            <th class="sticky">Toy</th>
             `]
 
         for(const [key,val] of Object.entries(store_list())){
