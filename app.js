@@ -47,7 +47,7 @@ const authenticated_menu=[
     //This menu item adds the menu item for updating an inventory count. Notice how a parameter is passed to the "ice_cream_inventory" function
     {label:"Enter Toy Inventory",home:"Inventory",function:"navigate({fn:'record_inventory'})"},
     //the remaining menu items are added
-    {label:"Toy Inventory Summary",home:"Inventory",function:"navigate({fn:'show_inventory_summary'})", roles:["owner","administrator"]},
+    {label:"Toy Inventory Summary",home:"Inventory",function:"navigate({fn:'toy_list'})", roles:["owner","administrator"]},
     {label:"Check Toys In",function:"navigate({fn:'check_toys_in)'})"},
     {label:"Check Toys Out",function:"navigate({fn:'check_toys_out)'})"},
     {label:"Employee List",function:"navigate({fn:'employee_list'})"},
