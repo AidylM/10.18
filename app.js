@@ -72,7 +72,7 @@ function show_home(){
         }
     }
 
-    //the main page is rendered with the Brooker's Ice cream logo. 
+    //the main page is rendered with the WholeChildTherapy logo. 
 
     tag("canvas").innerHTML=` 
     <div class="center-screen">
@@ -189,7 +189,7 @@ async function record_inventory(params){
         //building the HTML shell
         tag("canvas").innerHTML=` 
             <div class="page">
-                <div id="inventory-title" style="text-align:center"><h2>Ice Cream Inventory</h2></div>
+                <div id="inventory-title" style="text-align:center"><h2>Toy Inventory</h2></div>
                 <div id="inventory-message" style="width:100%"></div>
                 <div id="inventory_panel"  style="width:100%">
                 </div>
@@ -262,7 +262,7 @@ async function record_inventory(params){
             }     
             header.push('<th class="sticky">Total</th></tr>')
             html.push(header.join(""))
-            irregular=[]// ice cream not in regular category
+            irregular=[]// Toy not in regular category
 
             p=1// for keeping track of navigating rows.  can be reused after this loop
             for(record of response.list.records){
