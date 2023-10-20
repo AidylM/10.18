@@ -202,10 +202,10 @@ async function record_inventory(params){
         if(user_data.store.length===1){
             //If the user is associated with exactly 1 store, we call the get_inventory_list function again to populate the rest of the page with the data for that store. 
             tag("inventory-message").innerHTML='<i class="fas fa-spinner fa-pulse"></i>'//this element is used to add a visual element (spinning wheel) to signify that the site is processing.
-            //we call the get_inventory_list function (mode) filtered to show only "Ice Cream" (filter) - note that there are other inventory items - in the store associated with this user (store).
+            //we call the get_inventory_list function (mode) filtered to show only "Toys" (filter) - note that there are other inventory items - in the store associated with this user (store).
             record_inventory({
                 mode:"get_inventory_data",
-                filter:"list='Ice Cream'",
+                filter:"list='Toys'",
                 store:user_data.store[0]
             })
         }else{
@@ -218,7 +218,7 @@ async function record_inventory(params){
             html.push(`</select>
                         <button type="button" id="choose_store_button" onclick="record_inventory(form_data(this,true))">Submit</button>
                         <input type="hidden" name="mode" value="get_inventory_data">
-                        <input type="hidden" name="filter" value="list='Ice Cream'">
+                        <input type="hidden" name="filter" value="list='Toys'">
                         </form>`)
             tag("inventory_panel").innerHTML=html.join("")
         }
