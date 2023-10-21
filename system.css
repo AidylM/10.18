@@ -102,3 +102,9 @@ form {
     padding: .2rem;
     border:1px solid black;
 }
+
+.center-button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

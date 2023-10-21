@@ -129,6 +129,9 @@ async function toy_list(){
         html.push('<th>Quantity</th>')
         html.push('<th>Condition</th>')
         html.push('<th>Category</th>')
+        html.push('<th>Check Out</th>')
+        html.push('<th>Reports (Admin Only)</th>')
+        //admin only need to code permissions -CH
         html.push('</tr>')
 
         for(const record of response.records){
@@ -139,6 +142,9 @@ async function toy_list(){
             html.push(`<td>${record.fields.Quantity}</td>`)
             html.push(`<td>${record.fields.Condition}</td>`)
             html.push(`<td>${record.fields.Category}</td>`)
+            //Code buttons to separate pages
+            html.push(`<td><button id="CheckOutButton">Check Out</button></td>`)
+            html.push(`<td class="center-button"><button id="ReportsButton">Reports</button></td>`)
             html.push('</tr>')
         }   
 
