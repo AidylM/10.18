@@ -38,9 +38,13 @@ const authenticated_menu=[
     //This menu item allows the user to logout
     {label:"Logout",function:"logout()", home:"Logout"},
     //This menu item builds a sub menu that provides the user with the functionality to request time off and see their requests
-    {label:"Time Off",id:"menu1",menu:[
-        {label:"Request Time Off",function:"navigate({fn:'request_time_off'})"}, 
-        {label:"My Requests",function:"navigate({fn:'show_time_off'})"}, 
+    //{label:"Time Off",id:"menu1",menu:[
+    //    {label:"Request Time Off",function:"navigate({fn:'request_time_off'})"}, 
+    //    {label:"My Requests",function:"navigate({fn:'show_time_off'})"}, 
+    //]},
+    {label:"Reports",id:"menu2",menu:[
+        {label:"Toys Checked Out",function:"navigate({fn:'toys_checked_out'})"}, 
+        {label:"Conditions",function:"navigate({fn:'show_time_off'})"}, 
     ]},
     //This menu item allows the user to add additional users. Note the "roles" property of the object. Only users with the role of "manager", "owner", or "administrator" will see this menu item. User roles are not heirachical. All user types you wish to see a menu item must be listed in the elements of the array.
     {label:"Add Employee",function:"navigate({fn:'create_account'})", roles:["manager","owner","administrator"]}, 
