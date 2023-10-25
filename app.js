@@ -116,7 +116,7 @@ async function check_toys_in(){
 
     `
 
-    const response = await server_request({mode:"get_toys"})
+    const response = await server_request({mode:"get_check_in"})
 
     if (response.status==='success'){
         //we got data back
