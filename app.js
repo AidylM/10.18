@@ -48,7 +48,7 @@ const authenticated_menu=[
     {label:"Edit Toy Inventory",home:"Inventory",function:"navigate({fn:'record_inventory'})"},
     //the remaining menu items are added
     {label:"Toy Inventory Summary",home:"Inventory",function:"navigate({fn:'toy_list'})", roles:["owner","administrator"]},
-    {label:"Check Toys In",function:"navigate({fn:'check_toys_in)'})"},
+    {label:"Check Toys In",home:"Inventory",function:"navigate({fn:'check_toys_in)'})", roles:["owner","administrator"]},
     {label:"Check Toys Out",function:"navigate({fn:'check_toys_out)'})"},
     {label:"Employee List",function:"navigate({fn:'employee_list'})"},
     {label:"Admin Tools",id:"menu2", roles:["manager","owner","administrator"], menu:[
