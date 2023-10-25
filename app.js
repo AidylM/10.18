@@ -102,6 +102,20 @@ async function show_locations(){
     hide_menu()
 }
 
+async function check_toys_in(){
+    // create HTML div for data
+
+    tag("canvas").innerHTML= `
+    <div class="page">
+
+    <h2> List of Toys </h2>
+    <div id="toy_list_panel">
+    <i class="fas fa-spinner fa-pulse"></i>
+    </div>
+    </div>
+
+    `
+}
 async function toy_list(){
     // create HTML div for data
 
