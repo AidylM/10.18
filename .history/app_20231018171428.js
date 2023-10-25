@@ -45,11 +45,10 @@ const authenticated_menu=[
     //This menu item allows the user to add additional users. Note the "roles" property of the object. Only users with the role of "manager", "owner", or "administrator" will see this menu item. User roles are not heirachical. All user types you wish to see a menu item must be listed in the elements of the array.
     {label:"Add Employee",function:"navigate({fn:'create_account'})", roles:["manager","owner","administrator"]}, 
     //This menu item adds the menu item for updating an inventory count. Notice how a parameter is passed to the "ice_cream_inventory" function
-    {label:"Edit Toy Inventory",home:"Inventory",function:"navigate({fn:'record_inventory'})"},
+    {label:"Enter Toy Inventory",home:"Inventory",function:"navigate({fn:'record_inventory'})"},
     //the remaining menu items are added
-    {label:"Toy Inventory Summary",home:"Inventory",function:"navigate({fn:'toy_list'})", roles:["owner","administrator"]},
+    {label:"Toy Inventory Summary",home:"Inventory",function:"navigate({fn:'show_inventory_summary'})", roles:["owner","administrator"]},
     {label:"Check Toys In",function:"navigate({fn:'check_toys_in)'})"},
-    {label:"Check Toys Out",function:"navigate({fn:'check_toys_out)'})"},
     {label:"Employee List",function:"navigate({fn:'employee_list'})"},
     {label:"Admin Tools",id:"menu2", roles:["manager","owner","administrator"], menu:[
         {label:"Update User",function:"update_user()",panel:"update_user"},
@@ -57,9 +56,6 @@ const authenticated_menu=[
 
 ]
 //unnecessary comment
-
-
-
 
 function show_home(){
     
@@ -72,7 +68,7 @@ function show_home(){
         }
     }
 
-    //the main page is rendered with the WholeChildTherapy logo. 
+    //the main page is rendered with the Brooker's Ice cream logo. 
 
     tag("canvas").innerHTML=` 
     <div class="center-screen">
@@ -100,63 +96,6 @@ async function show_locations(){
     //here the HTML of the page is configured to display the shared view in airtable.
     tag("canvas").innerHTML=`<div class="center-screen"><iframe class="airtable-embed" src="https://airtable.com/embed/${show_locations_share}?backgroundColor=cyan" frameborder="0" onmousewheel="" width="${width}" height="500" style="background-color: white; border: 1px solid #ccc;"></iframe></div>`
     hide_menu()
-}
-
-async function toy_list(){
-    // create HTML div for data
-
-    tag("canvas").innerHTML= `
-    <div class="page">
-
-    <h2> List of Toys </h2>
-    <div id="toy_list_panel">
-    <i class="fas fa-spinner fa-pulse"></i>
-    </div>
-    </div>
-
-    `
-    
-
-    const response = await server_request({mode:"get_toys"})
-
-    if (response.status==='success'){
-        //we got data back
-
-        const html = ['<table border="2"><tr>']
-        html.push('<th>Toy</th>')
-        html.push('<th>Bin</th>')
-        html.push('<th>Tags</th>')
-        html.push('<th>Quantity</th>')
-        html.push('<th>Condition</th>')
-        html.push('<th>Category</th>')
-        html.push('<th>Check Out</th>')
-        html.push('<th>Reports (Admin Only)</th>')
-        //admin only need to code permissions -CH
-        html.push('</tr>')
-
-        for(const record of response.records){
-            html.push('<tr>')
-            html.push(`<td>${record.fields.Toy}</td>`)
-            html.push(`<td>${record.fields.Bin}</td>`)
-            html.push(`<td>${record.fields.Tags}</td>`)
-            html.push(`<td>${record.fields.Quantity}</td>`)
-            html.push(`<td>${record.fields.Condition}</td>`)
-            html.push(`<td>${record.fields.Category}</td>`)
-            //Code buttons to separate pages
-            html.push(`<td><button id="CheckOutButton">Check Out</button></td>`)
-            html.push(`<td class="center-button"><button id="ReportsButton">Reports</button></td>`)
-            html.push('</tr>')
-        }   
-
-
-        tag("toy_list_panel").innerHTML = html.join("")
-
-    }else{
-        tag("toy_list_panel").innerHTML = "There was an error getting the task data"
-    }
-
-
-    
 }
 
 async function request_time_off(){
@@ -208,10 +147,10 @@ async function record_inventory(params){
         if(user_data.store.length===1){
             //If the user is associated with exactly 1 store, we call the get_inventory_list function again to populate the rest of the page with the data for that store. 
             tag("inventory-message").innerHTML='<i class="fas fa-spinner fa-pulse"></i>'//this element is used to add a visual element (spinning wheel) to signify that the site is processing.
-            //we call the get_inventory_list function (mode) filtered to show only "Toys" (filter) - note that there are other inventory items - in the store associated with this user (store).
+            //we call the get_inventory_list function (mode) filtered to show only "Ice Cream" (filter) - note that there are other inventory items - in the store associated with this user (store).
             record_inventory({
                 mode:"get_inventory_data",
-                filter:"list='Toys'",
+                filter:"list='Ice Cream'",
                 store:user_data.store[0]
             })
         }else{
@@ -224,7 +163,7 @@ async function record_inventory(params){
             html.push(`</select>
                         <button type="button" id="choose_store_button" onclick="record_inventory(form_data(this,true))">Submit</button>
                         <input type="hidden" name="mode" value="get_inventory_data">
-                        <input type="hidden" name="filter" value="list='Toys'">
+                        <input type="hidden" name="filter" value="list='Ice Cream'">
                         </form>`)
             tag("inventory_panel").innerHTML=html.join("")
         }
@@ -248,7 +187,7 @@ async function record_inventory(params){
             window.cols={}
             console.log("response", response)
             // build the HTML header for the page identifying the store for which the counts will be recorded
-            tag("inventory-title").innerHTML=`<h2>${store_list()[params.store]} Toy Inventory</h2>`
+            tag("inventory-title").innerHTML=`<h2>${store_list()[params.store]} Ice Cream Inventory</h2>`
             const html=["Fill in every row in this section."]
             //build the table for the form used to record the counts.
             const header=[`
@@ -268,7 +207,7 @@ async function record_inventory(params){
             }     
             header.push('<th class="sticky">Total</th></tr>')
             html.push(header.join(""))
-            irregular=[]// Toy not in regular category
+            irregular=[]// ice cream not in regular category
 
             p=1// for keeping track of navigating rows.  can be reused after this loop
             for(record of response.list.records){
@@ -366,7 +305,7 @@ async function show_inventory_summary(params){
     //building the HTML shell
     tag("canvas").innerHTML=` 
         <div class="page">
-            <div id="inventory-title" style="text-align:center"><h2>Toy Inventory</h2></div>
+            <div id="inventory-title" style="text-align:center"><h2>Ice Cream Inventory</h2></div>
             <div id="inventory-message" style="width:100%"></div>
             <div id="inventory_panel"  style="width:100%">
             </div>
@@ -381,7 +320,7 @@ async function show_inventory_summary(params){
     
     const response=await server_request({
         mode:"get_inventory_summary",
-        filter:"Bin='Toy'",
+        filter:"list='Ice Cream'",
         store:user_data.store,
     })
     tag("inventory-message").innerHTML=''
@@ -392,14 +331,14 @@ async function show_inventory_summary(params){
 
         console.log("response", response)
         //build the HMTL heading for the report
-        tag("inventory-title").innerHTML=`<h2>Toy Inventory Summary</h2>`
+        tag("inventory-title").innerHTML=`<h2>Ice Cream Inventory Summary</h2>`
 
 
         //Build the table to display the report. The columns of the table are: Flavor, the stores available to the user, and the total inventory. Since only the owner is given the option to view inventory counts (see the autheticated_user global variable), all stores will be shown in the report.
         const header=[`
         <table class="inventory-table">
             <tr>
-            <th class="sticky">Toy</th>
+            <th class="sticky">Flavor</th>
             `]
 
         for(const [key,val] of Object.entries(store_list())){
