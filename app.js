@@ -42,13 +42,17 @@ const authenticated_menu=[
         {label:"Request Time Off",function:"navigate({fn:'request_time_off'})"}, 
         {label:"My Requests",function:"navigate({fn:'show_time_off'})"}, 
     ]},
+    {label:"Reports",id:"menu1",menu:[
+        {label:"Toys Checked Out",function:"navigate({fn:'toys_checked_out'})"}, 
+        {label:"Conditions",function:"navigate({fn:'show_time_off'})"}, 
+    ]},
     //This menu item allows the user to add additional users. Note the "roles" property of the object. Only users with the role of "manager", "owner", or "administrator" will see this menu item. User roles are not heirachical. All user types you wish to see a menu item must be listed in the elements of the array.
     {label:"Add Employee",function:"navigate({fn:'create_account'})", roles:["manager","owner","administrator"]}, 
     //This menu item adds the menu item for updating an inventory count. Notice how a parameter is passed to the "ice_cream_inventory" function
     {label:"Edit Toy Inventory",home:"Inventory",function:"navigate({fn:'record_inventory'})"},
     //the remaining menu items are added
     {label:"Toy Inventory Summary",home:"Inventory",function:"navigate({fn:'toy_list'})", roles:["owner","administrator"]},
-    {label:"Check Toys In",home:"Inventory",function:"navigate({fn:'check_toys_in)'})", roles:["owner","administrator"]},
+    {label:"Check Toys In",function:"navigate({fn:'check_toys_in)'})"},
     {label:"Check Toys Out",function:"navigate({fn:'check_toys_out)'})"},
     {label:"Employee List",function:"navigate({fn:'employee_list'})"},
     {label:"Admin Tools",id:"menu2", roles:["manager","owner","administrator"], menu:[
@@ -115,8 +119,24 @@ async function check_toys_in(){
     </div>
 
     `
+}
 
-    const response = await server_request({mode:"get_check_in"})
+async function toys_conditions(){
+    // create HTML div for data
+
+    tag("canvas").innerHTML= `
+    <div class="page">
+
+    <h2> List of Toys </h2>
+    <div id="toy_list_panel">
+    <i class="fas fa-spinner fa-pulse"></i>
+    </div>
+    </div>
+
+    `
+    
+
+    const response = await server_request({mode:"get_reports_condition"})
 
     if (response.status==='success'){
         //we got data back
@@ -153,6 +173,65 @@ async function check_toys_in(){
     }else{
         tag("toy_list_panel").innerHTML = "There was an error getting the task data"
     }
+
+
+    
+}
+async function toys_checked_out(){
+    // create HTML div for data
+
+    tag("canvas").innerHTML= `
+    <div class="page">
+
+    <h2> List of Toys </h2>
+    <div id="toy_list_panel">
+    <i class="fas fa-spinner fa-pulse"></i>
+    </div>
+    </div>
+
+    `
+    
+
+    const response = await server_request({mode:"get_reports_checkedout"})
+
+    if (response.status==='success'){
+        //we got data back
+
+        const html = ['<table border="2"><tr>']
+        html.push('<th>Toy</th>')
+        html.push('<th>Bin</th>')
+        html.push('<th>Tags</th>')
+        html.push('<th>Quantity</th>')
+        html.push('<th>Condition</th>')
+        html.push('<th>Category</th>')
+        html.push('<th>Check Out</th>')
+        html.push('<th>Reports (Admin Only)</th>')
+        //admin only need to code permissions -CH
+        html.push('</tr>')
+
+        for(const record of response.records){
+            html.push('<tr>')
+            html.push(`<td>${record.fields.Toy}</td>`)
+            html.push(`<td>${record.fields.Bin}</td>`)
+            html.push(`<td>${record.fields.Tags}</td>`)
+            html.push(`<td>${record.fields.Quantity}</td>`)
+            html.push(`<td>${record.fields.Condition}</td>`)
+            html.push(`<td>${record.fields.Category}</td>`)
+            //Code buttons to separate pages
+            html.push(`<td><button id="CheckOutButton">Check Out</button></td>`)
+            html.push(`<td class="center-button"><button id="ReportsButton">Reports</button></td>`)
+            html.push('</tr>')
+        }   
+
+
+        tag("toy_list_panel").innerHTML = html.join("")
+
+    }else{
+        tag("toy_list_panel").innerHTML = "There was an error getting the task data"
+    }
+
+
+    
 }
 async function toy_list(){
     // create HTML div for data
