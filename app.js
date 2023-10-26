@@ -223,7 +223,7 @@ async function toys_conditions(){
     tag("canvas").innerHTML= `
     <div class="page">
 
-    <h2> Poor Condition of Toys </h2>
+    <h2> Poor Condition Toys </h2>
     <div id="toy_list_panel">
     <i class="fas fa-spinner fa-pulse"></i>
     </div>
