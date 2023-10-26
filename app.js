@@ -42,7 +42,7 @@ const authenticated_menu=[
     //    {label:"Request Time Off",function:"navigate({fn:'request_time_off'})"}, 
     //    {label:"My Requests",function:"navigate({fn:'show_time_off'})"}, 
     //]},
-    {label:"Reports",id:"menu2",menu:[
+    {label:"Reports",id:"menu1",menu:[
         {label:"Toys Checked Out",function:"navigate({fn:'toys_checked_out'})"}, 
         {label:"Conditions",function:"navigate({fn:'toys_conditions'})"}, 
     ]},
@@ -122,6 +122,119 @@ async function toy_list(){
     
 
     const response = await server_request({mode:"get_toys"})
+
+    if (response.status==='success'){
+        //we got data back
+
+        const html = ['<table border="2"><tr>']
+        html.push('<th>Toy</th>')
+        html.push('<th>Bin</th>')
+        html.push('<th>Tags</th>')
+        html.push('<th>Quantity</th>')
+        html.push('<th>Condition</th>')
+        html.push('<th>Category</th>')
+        html.push('<th>Check Out</th>')
+        html.push('<th>Reports (Admin Only)</th>')
+        //admin only need to code permissions -CH
+        html.push('</tr>')
+
+        for(const record of response.records){
+            html.push('<tr>')
+            html.push(`<td>${record.fields.Toy}</td>`)
+            html.push(`<td>${record.fields.Bin}</td>`)
+            html.push(`<td>${record.fields.Tags}</td>`)
+            html.push(`<td>${record.fields.Quantity}</td>`)
+            html.push(`<td>${record.fields.Condition}</td>`)
+            html.push(`<td>${record.fields.Category}</td>`)
+            //Code buttons to separate pages
+            html.push(`<td><button id="CheckOutButton">Check Out</button></td>`)
+            html.push(`<td class="center-button"><button id="ReportsButton">Reports</button></td>`)
+            html.push('</tr>')
+        }   
+
+
+        tag("toy_list_panel").innerHTML = html.join("")
+
+    }else{
+        tag("toy_list_panel").innerHTML = "There was an error getting the task data"
+    }
+
+
+    
+}
+async function toys_checked_out(){
+    // create HTML div for data
+
+    tag("canvas").innerHTML= `
+    <div class="page">
+
+    <h2> Toys Checked Out </h2>
+    <div id="toy_list_panel">
+    <i class="fas fa-spinner fa-pulse"></i>
+    </div>
+    </div>
+
+    `
+    
+
+    const response = await server_request({mode:"get_reports_checkedout"})
+
+    if (response.status==='success'){
+        //we got data back
+
+        const html = ['<table border="2"><tr>']
+        html.push('<th>Toy</th>')
+        html.push('<th>Bin</th>')
+        html.push('<th>Tags</th>')
+        html.push('<th>Quantity</th>')
+        html.push('<th>Condition</th>')
+        html.push('<th>Category</th>')
+        html.push('<th>Check Out</th>')
+        html.push('<th>Reports (Admin Only)</th>')
+        //admin only need to code permissions -CH
+        html.push('</tr>')
+
+        for(const record of response.records){
+            html.push('<tr>')
+            html.push(`<td>${record.fields.Toy}</td>`)
+            html.push(`<td>${record.fields.Bin}</td>`)
+            html.push(`<td>${record.fields.Tags}</td>`)
+            html.push(`<td>${record.fields.Quantity}</td>`)
+            html.push(`<td>${record.fields.Condition}</td>`)
+            html.push(`<td>${record.fields.Category}</td>`)
+            //Code buttons to separate pages
+            html.push(`<td><button id="CheckOutButton">Check Out</button></td>`)
+            html.push(`<td class="center-button"><button id="ReportsButton">Reports</button></td>`)
+            html.push('</tr>')
+        }   
+
+
+        tag("toy_list_panel").innerHTML = html.join("")
+
+    }else{
+        tag("toy_list_panel").innerHTML = "There was an error getting the task data"
+    }
+
+
+    
+}
+
+async function toys_conditions(){
+    // create HTML div for data
+
+    tag("canvas").innerHTML= `
+    <div class="page">
+
+    <h2> Poor Condition of Toys </h2>
+    <div id="toy_list_panel">
+    <i class="fas fa-spinner fa-pulse"></i>
+    </div>
+    </div>
+
+    `
+    
+
+    const response = await server_request({mode:"get_reports_condition"})
 
     if (response.status==='success'){
         //we got data back
