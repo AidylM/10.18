@@ -42,7 +42,7 @@ const authenticated_menu=[
     //    {label:"Request Time Off",function:"navigate({fn:'request_time_off'})"}, 
     //    {label:"My Requests",function:"navigate({fn:'show_time_off'})"}, 
     //]},
-    {label:"Reports",id:"menu1",menu:[
+    {label:"Reports",id:"menu2",menu:[
         {label:"Toys Checked Out",function:"navigate({fn:'toys_checked_out'})"}, 
         {label:"Conditions",function:"navigate({fn:'toys_conditions'})"}, 
     ]},
