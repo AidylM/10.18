@@ -155,7 +155,7 @@ async function toy_list(){
 }
 
 async function check_toys_in(params){
-    console.log('in record_inventory')
+    console.log('check_toys_in')
 
     if(!logged_in()){show_home();return}//in case followed a link after logging out. This prevents the user from using this feature when they are not authenticated.
 
@@ -177,7 +177,7 @@ async function check_toys_in(params){
 }
 
 async function check_toys_out(params){
-    console.log('in record_inventory')
+    console.log('check_toys_out')
 
     if(!logged_in()){show_home();return}//in case followed a link after logging out. This prevents the user from using this feature when they are not authenticated.
 
