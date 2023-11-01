@@ -177,7 +177,7 @@ async function check_toys_in(params){
         //building the HTML shell
         tag("canvas").innerHTML=` 
             <div class="page">
-                <div id="inventory-title" style="text-align:center"><h2>Toy Inventory</h2></div>
+                <div id="inventory-title" style="text-align:center"><h2>Check Toys In</h2></div>
                 <div id="inventory-message" style="width:100%"></div>
                 <div id="inventory_panel"  style="width:100%">
                 </div>
@@ -199,7 +199,7 @@ async function check_toys_out(params){
         //building the HTML shell
         tag("canvas").innerHTML=` 
             <div class="page">
-                <div id="inventory-title" style="text-align:center"><h2>Toy Inventory</h2></div>
+                <div id="inventory-title" style="text-align:center"><h2>Check Toys Out</h2></div>
                 <div id="inventory-message" style="width:100%"></div>
                 <div id="inventory_panel"  style="width:100%">
                 </div>
