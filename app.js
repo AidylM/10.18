@@ -164,54 +164,25 @@ async function toy_list(){
     
 }
 
-async function check_toys_in(){
-    tag("canvas").innerHTML= `
-    <div class="page">
+async function check_toys_in(params){
+    console.log('in record_inventory')
 
-    <h2> List of Toys </h2>
-    <div id="toy_list_panel">
-    <i class="fas fa-spinner fa-pulse"></i>
-    </div>
-    </div>
+    if(!logged_in()){show_home();return}//in case followed a link after logging out. This prevents the user from using this feature when they are not authenticated.
 
-    `
+    //First we hide the menu
+    hide_menu()
 
-    const response = await server_request({mode:"check_in"})
-
-    if (response.status==='success'){
-        //we got data back
-
-        const html = ['<table border="2"><tr>']
-        html.push('<th>Toy</th>')
-        html.push('<th>Bin</th>')
-        html.push('<th>Tags</th>')
-        html.push('<th>Quantity</th>')
-        html.push('<th>Condition</th>')
-        html.push('<th>Category</th>')
-        html.push('<th>Check Out</th>')
-        html.push('<th>Reports (Admin Only)</th>')
-        //admin only need to code permissions -CH
-        html.push('</tr>')
-
-        for(const record of response.records){
-            html.push('<tr>')
-            html.push(`<td>${record.fields.Toy}</td>`)
-            html.push(`<td>${record.fields.Bin}</td>`)
-            html.push(`<td>${record.fields.Tags}</td>`)
-            html.push(`<td>${record.fields.Quantity}</td>`)
-            html.push(`<td>${record.fields.Condition}</td>`)
-            html.push(`<td>${record.fields.Category}</td>`)
-            //Code buttons to separate pages
-            html.push(`<td><button id="CheckOutButton">Check Out</button></td>`)
-            html.push(`<td class="center-button"><button id="ReportsButton">Reports</button></td>`)
-            html.push('</tr>')
-        }   
-
-
-        tag("toy_list_panel").innerHTML = html.join("")
-
-    }else{
-        tag("toy_list_panel").innerHTML = "There was an error getting the task data"
+    //This function is set up recursively to build the page for working with inventory. The first time the function is called, the HTML shell is created for displaying either the inventory form for recording the count or the inventory report. Note that this will only be built if there is a "style" property set when the function is called. Once the shell is created, the function is called again to either built the form for recording an inventory count or create the summary report.
+    if(!params){
+        //building the HTML shell
+        tag("canvas").innerHTML=` 
+            <div class="page">
+                <div id="inventory-title" style="text-align:center"><h2>Toy Inventory</h2></div>
+                <div id="inventory-message" style="width:100%"></div>
+                <div id="inventory_panel"  style="width:100%">
+                </div>
+            </div>  
+        `
     }
 }
 
