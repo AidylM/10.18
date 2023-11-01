@@ -7,7 +7,6 @@ const gas_end_point = 'https://script.google.com/macros/s/'+gas_deployment_id+'/
 const nav_menu=[
     //Note that a menu item is added by inserting an object for that menu item. The 'label' is the text that the user sees for that menu option. The function is the javascript function invoked when selecting that option. Here we insert the "home" and "locations" menu items. Both initiate a call to the navigate function which loads the appropriate page. The navigate function is used to help ensure smooth navigation. It allows the user to use the back botton in their browser when navigating between pages on the site (without navigating out ot the site). The navigate can accept parameters that can be passed to the function called by navigate.
     {label:"Home",function:"navigate({fn:'show_home'})"},
-    {label:"Locations",function:"navigate({fn:'show_locations'})"},
     
 ]
 
@@ -98,15 +97,6 @@ function get_user_name(){
     return data.first_name + " " + data.last_name
 }
 
-
-async function show_locations(){
-    //This function demonstrates how to render a view that is created in Airtable. The list of locations is a view of the Store table in airtable. It is shared in Airtable. The ID of the share is all that is needed to display the share embedded in this webpage. Generally Airtable shared items are visible by anyone with the link or id, so any data that must be secured should not be rendered using this method. However, it is a quick and easy way to display data stored in airtable.
-    const width = 400
-    //here the HTML of the page is configured to display the shared view in airtable.
-    tag("canvas").innerHTML=`<div class="center-screen"><iframe class="airtable-embed" src="https://airtable.com/embed/${show_locations_share}?backgroundColor=cyan" frameborder="0" onmousewheel="" width="${width}" height="500" style="background-color: white; border: 1px solid #ccc;"></iframe></div>`
-    hide_menu()
-}
-
 async function toy_list(){
     // create HTML div for data
 
@@ -173,7 +163,7 @@ async function toy_list(){
 // button.addEventListener("click", check_toys_in)
 
 async function check_toys_in(params){
-    console.log('in record_inventory')
+    console.log('check_toys_in')
 
     if(!logged_in()){show_home();return}//in case followed a link after logging out. This prevents the user from using this feature when they are not authenticated.
 
@@ -195,7 +185,7 @@ async function check_toys_in(params){
 }
 
 async function check_toys_out(params){
-    console.log('in record_inventory')
+    console.log('check_toys_out')
 
     if(!logged_in()){show_home();return}//in case followed a link after logging out. This prevents the user from using this feature when they are not authenticated.
 
@@ -519,139 +509,6 @@ async function record_inventory(params){
             tag("inventory_panel").innerHTML="Unable to get inventory list: " + response.message + "."
         }
     }
-}
-
-async function show_inventory_summary(params){
-    console.log('in show_inventory_summary')
-    //this function is used both the record inventory counts and to build a summary report. The "style" property of the params sent to the function determines whether the function is in "count" mode or "summary" mode. Also, if the user has access to multiple stores, they will be presented with the option to select the store they wish to work with.
-
-    if(!logged_in()){show_home();return}//in case followed a link after logging out. This prevents the user from using this feature when they are not authenticated.
-
-    //First we hide the menu
-    hide_menu()
-    //This function is set up recursively to build the page for working with inventory. The first time the function is called, the HTML shell is created for displaying either the inventory form for recording the count or the inventory report. Note that this will only be built if there is a "style" property set when the function is called. Once the shell is created, the function is called again to either built the form for recording an inventory count or create the summary report.
-    //building the HTML shell
-    tag("canvas").innerHTML=` 
-        <div class="page">
-            <div id="inventory-title" style="text-align:center"><h2>Toy Inventory</h2></div>
-            <div id="inventory-message" style="width:100%"></div>
-            <div id="inventory_panel"  style="width:100%">
-            </div>
-        </div>  
-    `
-    //loading user data. Any user can record an inventory count, so we don't need to check their role at this point. If a user is associated with more than one store and they wish to record an inventory count, they will be prompted to select the store they want to work with.
-
-    const user_data = get_user_data()
-    console.log ("user_data",user_data)
-    //If the user wants to see a summary of the most recent count, we call the "get_inventory_summary" function to populate the page with data from all of the stores that are associated with that user.
-    tag("inventory-message").innerHTML='<i class="fas fa-spinner fa-pulse"></i>'
-    
-    const response=await server_request({
-        mode:"get_inventory_summary",
-        filter:"Bin='Toy'",
-        store:user_data.store,
-    })
-    tag("inventory-message").innerHTML=''
-
-    if(response.status==="success"){//If the data is retrieved successfully, we proceed.
-    
-        //If the style property is set to "summary", we build the report of the most recent count.
-
-        console.log("response", response)
-        //build the HMTL heading for the report
-        tag("inventory-title").innerHTML=`<h2>Toy Inventory Summary</h2>`
-
-
-        //Build the table to display the report. The columns of the table are: Flavor, the stores available to the user, and the total inventory. Since only the owner is given the option to view inventory counts (see the autheticated_user global variable), all stores will be shown in the report.
-        const header=[`
-        <table class="inventory-table">
-            <tr>
-            <th class="sticky">Toy</th>
-            `]
-
-        for(const [key,val] of Object.entries(store_list())){
-            if(key.indexOf("rec")===0){
-                header.push(`<th class="sticky">${val}</th>`)
-            }
-        }
-
-        header.push(`<th class="sticky">Total</th>`)
-        header.push("</tr>")
-        const html=[header.join("")]
-
-        irregular=[]// used for icecream that is not in regular category
-
-        //processing the data to fit in the table
-        for(record of response.list.records){
-            let target=html
-            if(record.fields.category!=="Regular"){
-                target=irregular
-            }
-            //add a new table row to the table for each flavor
-            target.push("<tr>")
-            //insert the flavor name (record.field.name)
-            target.push(`<td style="text-align:left">${record.fields.name}</td>`)
-            //create empty cells in the table for the inventory counts. Notice that the ID for the empty cell is set to be a combination of the id for the flavor (record.id) and the store (stores[store]) corresponding to the column. This way the table can be populated with the correct data in the correct cells.
-
-            for(const [key,val] of Object.entries(store_list())){
-                if(key.indexOf("rec")===0){
-                    target.push(`<td id="${record.id}|${key}"></td>`)
-                }
-            }
-
-            //The totals will be calculated. The id is set to a combination of the flavor id and "total" so that the appropriate totals can be placed correctly in the table. 
-            target.push(`<td id="${record.id}|total"></td>`)
-            target.push("</tr>")
-        }     
-
-        //this adds a table for the "irregular" items that might be counted.
-        html.push("</table><br>")
-        html.push(header.join(""))
-        html.push(irregular.join(""))
-        html.push("</table>")
-        tag("inventory_panel").innerHTML=html.join("")
-
-
-        // find the most recent numbers for each store
-        const data={}
-        //if there is data to display, proceed
-        if(response.data.records){
-            //process through each available data item
-            for(record of response.data.records){
-                //identity the flavor/store combination for each observation
-                const id = record.fields.item[0] + "|" + record.fields.store[0]
-                //Since the data is ordered by date, if we have already found an observation for a flavor/store combination, any additional obeservations are skipped.
-                if(!data[id]){
-                    data[id]={quantity:record.fields.quantity,date:record.fields.date}
-                }
-            }
-
-            // now fill the table with the most recent observations found for each flavor/store combination
-            for(const[key,value] of Object.entries(data)){
-                //create "boxes" for the store observations and totals of each flavor based on the identifiers already created for the individual cells (id's of the <td> tags)
-                const total_box = tag(key.split("|")[0] + "|total")
-                const box = tag(key)
-                //There will be more than one current observation for a flavor in each store, so we need to total these observations by store. To do this, if there is not currently a value in the table for flavor/store, it is added. If there is an observation, the new observation is added to the one that is currently there (running total logic).
-                if(box.innerHTML===""){
-                    box.innerHTML=value.quantity
-                }else{
-                    box.innerHTML=parseFloat(box.innerHTML)+value.quantity
-                }
-                //similar logic is used to build running totals for the grand total column.
-                if(total_box.innerHTML===""){
-                    total_box.innerHTML=value.quantity
-                }else{
-                    total_box.innerHTML=parseFloat(total_box.innerHTML)+value.quantity
-                }
-
-            }
-        }
-        
-    }else{
-        //This executes if the data needed to create the form or report is not retrieved successfully. It is essentially an error message to the user.
-        tag("inventory_panel").innerHTML="Unable to get inventory list: " + response.message + "."        
-    }
-
 }
 
 
