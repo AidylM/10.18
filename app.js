@@ -98,56 +98,6 @@ function get_user_name(){
     return data.first_name + " " + data.last_name
 }
 
-async function check_toys_in(){
-    tag("canvas").innerHTML= `
-    <div class="page">
-
-    <h2> List of Toys </h2>
-    <div id="toy_list_panel">
-    <i class="fas fa-spinner fa-pulse"></i>
-    </div>
-    </div>
-
-    `
-
-    const response = await server_request({mode:"check_in"})
-
-    if (response.status==='success'){
-        //we got data back
-
-        const html = ['<table border="2"><tr>']
-        html.push('<th>Toy</th>')
-        html.push('<th>Bin</th>')
-        html.push('<th>Tags</th>')
-        html.push('<th>Quantity</th>')
-        html.push('<th>Condition</th>')
-        html.push('<th>Category</th>')
-        html.push('<th>Check Out</th>')
-        html.push('<th>Reports (Admin Only)</th>')
-        //admin only need to code permissions -CH
-        html.push('</tr>')
-
-        for(const record of response.records){
-            html.push('<tr>')
-            html.push(`<td>${record.fields.Toy}</td>`)
-            html.push(`<td>${record.fields.Bin}</td>`)
-            html.push(`<td>${record.fields.Tags}</td>`)
-            html.push(`<td>${record.fields.Quantity}</td>`)
-            html.push(`<td>${record.fields.Condition}</td>`)
-            html.push(`<td>${record.fields.Category}</td>`)
-            //Code buttons to separate pages
-            html.push(`<td><button id="CheckOutButton">Check Out</button></td>`)
-            html.push(`<td class="center-button"><button id="ReportsButton">Reports</button></td>`)
-            html.push('</tr>')
-        }   
-
-
-        tag("toy_list_panel").innerHTML = html.join("")
-
-    }else{
-        tag("toy_list_panel").innerHTML = "There was an error getting the task data"
-    }
-}
 
 async function show_locations(){
     //This function demonstrates how to render a view that is created in Airtable. The list of locations is a view of the Store table in airtable. It is shared in Airtable. The ID of the share is all that is needed to display the share embedded in this webpage. Generally Airtable shared items are visible by anyone with the link or id, so any data that must be secured should not be rendered using this method. However, it is a quick and easy way to display data stored in airtable.
@@ -213,6 +163,58 @@ async function toy_list(){
 
     
 }
+
+async function check_toys_in(){
+    tag("canvas").innerHTML= `
+    <div class="page">
+
+    <h2> List of Toys </h2>
+    <div id="toy_list_panel">
+    <i class="fas fa-spinner fa-pulse"></i>
+    </div>
+    </div>
+
+    `
+
+    const response = await server_request({mode:"check_in"})
+
+    if (response.status==='success'){
+        //we got data back
+
+        const html = ['<table border="2"><tr>']
+        html.push('<th>Toy</th>')
+        html.push('<th>Bin</th>')
+        html.push('<th>Tags</th>')
+        html.push('<th>Quantity</th>')
+        html.push('<th>Condition</th>')
+        html.push('<th>Category</th>')
+        html.push('<th>Check Out</th>')
+        html.push('<th>Reports (Admin Only)</th>')
+        //admin only need to code permissions -CH
+        html.push('</tr>')
+
+        for(const record of response.records){
+            html.push('<tr>')
+            html.push(`<td>${record.fields.Toy}</td>`)
+            html.push(`<td>${record.fields.Bin}</td>`)
+            html.push(`<td>${record.fields.Tags}</td>`)
+            html.push(`<td>${record.fields.Quantity}</td>`)
+            html.push(`<td>${record.fields.Condition}</td>`)
+            html.push(`<td>${record.fields.Category}</td>`)
+            //Code buttons to separate pages
+            html.push(`<td><button id="CheckOutButton">Check Out</button></td>`)
+            html.push(`<td class="center-button"><button id="ReportsButton">Reports</button></td>`)
+            html.push('</tr>')
+        }   
+
+
+        tag("toy_list_panel").innerHTML = html.join("")
+
+    }else{
+        tag("toy_list_panel").innerHTML = "There was an error getting the task data"
+    }
+}
+
 async function toys_checked_out(){
     // create HTML div for data
 
