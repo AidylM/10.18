@@ -186,6 +186,28 @@ async function check_toys_in(params){
     }
 }
 
+async function check_toys_out(params){
+    console.log('in record_inventory')
+
+    if(!logged_in()){show_home();return}//in case followed a link after logging out. This prevents the user from using this feature when they are not authenticated.
+
+    //First we hide the menu
+    hide_menu()
+
+    //This function is set up recursively to build the page for working with inventory. The first time the function is called, the HTML shell is created for displaying either the inventory form for recording the count or the inventory report. Note that this will only be built if there is a "style" property set when the function is called. Once the shell is created, the function is called again to either built the form for recording an inventory count or create the summary report.
+    if(!params){
+        //building the HTML shell
+        tag("canvas").innerHTML=` 
+            <div class="page">
+                <div id="inventory-title" style="text-align:center"><h2>Toy Inventory</h2></div>
+                <div id="inventory-message" style="width:100%"></div>
+                <div id="inventory_panel"  style="width:100%">
+                </div>
+            </div>  
+        `
+    }
+}
+
 async function toys_checked_out(){
     // create HTML div for data
 
