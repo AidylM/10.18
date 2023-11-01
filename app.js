@@ -7,7 +7,6 @@ const gas_end_point = 'https://script.google.com/macros/s/'+gas_deployment_id+'/
 const nav_menu=[
     //Note that a menu item is added by inserting an object for that menu item. The 'label' is the text that the user sees for that menu option. The function is the javascript function invoked when selecting that option. Here we insert the "home" and "locations" menu items. Both initiate a call to the navigate function which loads the appropriate page. The navigate function is used to help ensure smooth navigation. It allows the user to use the back botton in their browser when navigating between pages on the site (without navigating out ot the site). The navigate can accept parameters that can be passed to the function called by navigate.
     {label:"Home",function:"navigate({fn:'show_home'})"},
-    {label:"Locations",function:"navigate({fn:'show_locations'})"},
     
 ]
 
@@ -96,15 +95,6 @@ function get_user_name(){
     //returns the user's first and last name. Used when building the navigation menu to be the label for the menu items related to maintaining the user. The get_user_data function reads the user information from the data cookie that is created when the user logs in.
     data=get_user_data()
     return data.first_name + " " + data.last_name
-}
-
-
-async function show_locations(){
-    //This function demonstrates how to render a view that is created in Airtable. The list of locations is a view of the Store table in airtable. It is shared in Airtable. The ID of the share is all that is needed to display the share embedded in this webpage. Generally Airtable shared items are visible by anyone with the link or id, so any data that must be secured should not be rendered using this method. However, it is a quick and easy way to display data stored in airtable.
-    const width = 400
-    //here the HTML of the page is configured to display the shared view in airtable.
-    tag("canvas").innerHTML=`<div class="center-screen"><iframe class="airtable-embed" src="https://airtable.com/embed/${show_locations_share}?backgroundColor=cyan" frameborder="0" onmousewheel="" width="${width}" height="500" style="background-color: white; border: 1px solid #ccc;"></iframe></div>`
-    hide_menu()
 }
 
 async function toy_list(){
