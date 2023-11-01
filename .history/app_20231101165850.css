@@ -37,8 +37,8 @@ h2{
 }
 
 .page{
-    background-color: rgb(245, 245, 234);
-    display:inline-block;
+    background-color: rgb(255, 255, 255);
+    /*display:inline-block;*/
     padding:1rem;
     align-items: stretch;
     text-align: left;

@@ -164,14 +164,6 @@ async function toy_list(){
     
 }
 
-//Adding click event to the button
-// var button = WholeChildTherapy.getElementById("CheckOutButton");
-// async function CheckOutButtonClicked() {
-//     console.log(check_toys_in)
-// }
-
-// button.addEventListener("click", check_toys_in)
-
 async function check_toys_in(params){
     console.log('in record_inventory')
 
@@ -362,9 +354,9 @@ async function record_inventory(params){
         //building the HTML shell
         tag("canvas").innerHTML=` 
             <div class="page">
-                <div id="inventory-title" style="text-align:center"><h2>Toy Inventory</h2></div>
+                <div id="inventory-title" style="text-align:fit"><h2>Toy Inventory</h2></div>
                 <div id="inventory-message" style="width:100%"></div>
-                <div id="inventory-panel"  style="width:100%">
+                <div id="inventory_panel"  style="width:100%">
                 </div>
             </div>  
         `

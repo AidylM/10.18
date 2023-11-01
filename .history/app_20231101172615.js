@@ -164,13 +164,13 @@ async function toy_list(){
     
 }
 
-//Adding click event to the button
-// var button = WholeChildTherapy.getElementById("CheckOutButton");
-// async function CheckOutButtonClicked() {
-//     console.log(check_toys_in)
-// }
 
-// button.addEventListener("click", check_toys_in)
+var button = WholeChildTherapy.getElementById("CheckOutButton");
+async function CheckOutButtonClicked() {
+    console.log(check_toys_in)
+}
+
+button.addEventListener("click", check_toys_in)
 
 async function check_toys_in(params){
     console.log('in record_inventory')

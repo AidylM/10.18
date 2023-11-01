@@ -37,7 +37,7 @@ h2{
 }
 
 .page{
-    background-color: rgb(245, 245, 234);
+    background-color: coral;
     display:inline-block;
     padding:1rem;
     align-items: stretch;
