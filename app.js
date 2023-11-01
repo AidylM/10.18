@@ -98,6 +98,19 @@ function get_user_name(){
     return data.first_name + " " + data.last_name
 }
 
+async function check_toys_in(){
+    tag("canvas").innerHTML= `
+    <div class="page">
+
+    <h2> List of Toys </h2>
+    <div id="toy_list_panel">
+    <i class="fas fa-spinner fa-pulse"></i>
+    </div>
+    </div>
+
+    `
+}
+
 async function show_locations(){
     //This function demonstrates how to render a view that is created in Airtable. The list of locations is a view of the Store table in airtable. It is shared in Airtable. The ID of the share is all that is needed to display the share embedded in this webpage. Generally Airtable shared items are visible by anyone with the link or id, so any data that must be secured should not be rendered using this method. However, it is a quick and easy way to display data stored in airtable.
     const width = 400
