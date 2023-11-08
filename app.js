@@ -109,7 +109,6 @@ async function toy_list(){
     </div>
 
     `
-    
 
     const response = await server_request({mode:"get_toys"})
 
@@ -124,7 +123,6 @@ async function toy_list(){
         html.push('<th>Condition</th>')
         html.push('<th>Category</th>')
         html.push('<th>Check Out</th>')
-        html.push('<th>Reports (Admin Only)</th>')
         //admin only need to code permissions -CH
         html.push('</tr>')
 
@@ -137,11 +135,9 @@ async function toy_list(){
             html.push(`<td>${record.fields.Condition}</td>`)
             html.push(`<td>${record.fields.Category}</td>`)
             //Code buttons to separate pages
-            html.push(`<td><button id="CheckOutButton">Check Out</button></td>`)
-            html.push(`<td class="center-button"><button id="ReportsButton">Reports</button></td>`)
+            html.push(`<td><button id="CheckOutButton" onclick="check_toys_out()">Check Out</button></td>`)
             html.push('</tr>')
         }   
-
 
         tag("toy_list_panel").innerHTML = html.join("")
 
@@ -149,8 +145,6 @@ async function toy_list(){
         tag("toy_list_panel").innerHTML = "There was an error getting the task data"
     }
 
-
-    
 }
 
 async function check_toys_in(params){
