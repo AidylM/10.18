@@ -197,7 +197,7 @@ async function overdue_toys(){
     tag("canvas").innerHTML= `
     <div class="page">
 
-    <h2> Toys Checked Out </h2>
+    <h2> Overdue Toys </h2>
     <div id="toy_list_panel">
     <i class="fas fa-spinner fa-pulse"></i>
     </div>
