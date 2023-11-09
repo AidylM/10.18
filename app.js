@@ -218,8 +218,7 @@ async function overdue_toys(){
         html.push('<th>Quantity</th>')
         html.push('<th>Condition</th>')
         html.push('<th>Category</th>')
-        html.push('<th>Reports (Admin Only)</th>')
-        //admin only need to code permissions -CH
+
         html.push('</tr>')
 
         for(const record of response.records){
@@ -230,8 +229,6 @@ async function overdue_toys(){
             html.push(`<td>${record.fields.Quantity}</td>`)
             html.push(`<td>${record.fields.Condition}</td>`)
             html.push(`<td>${record.fields.Category}</td>`)
-            //Code buttons to separate pages
-            html.push(`<td class="center-button"><button id="ReportsButton">Reports</button></td>`)
             html.push('</tr>')
         }   
 
@@ -273,8 +270,6 @@ async function toys_conditions(){
         html.push('<th>Quantity</th>')
         html.push('<th>Condition</th>')
         html.push('<th>Category</th>')
-        html.push('<th>Reports (Admin Only)</th>')
-        //admin only need to code permissions -CH
         html.push('</tr>')
 
         for(const record of response.records){
@@ -285,8 +280,7 @@ async function toys_conditions(){
             html.push(`<td>${record.fields.Quantity}</td>`)
             html.push(`<td>${record.fields.Condition}</td>`)
             html.push(`<td>${record.fields.Category}</td>`)
-            //Code buttons to separate pages
-            html.push(`<td class="center-button"><button id="ReportsButton">Reports</button></td>`)
+
             html.push('</tr>')
         }   
 
