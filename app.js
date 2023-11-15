@@ -198,7 +198,6 @@ async function check_toys_out(params){
         for(const record of response.records){
             html.push('<tr>')
             html.push(`<td>${record.fields.Bin}</td>`)
-            html.push(`<td>${record.fields.Bin}</td>`)
             html.push(`<td>${record.fields.Checkout_date}</td>`)
             html.push(`<td>${record.fields.employee}</td>`)
 
