@@ -183,9 +183,7 @@ async function check_toys_out(id){
     console.log("New function call id=", id)    
 
 
-    const update_response = await server_request({mode:"update_checkedout",id:id})
-
-    console.log('update success?',update_response)
+    const update_response = await server_request({mode:"update_airtable_record"})
 
     const response = await server_request({mode:"get_reports_checkedout"})
 

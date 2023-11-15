@@ -135,7 +135,8 @@ async function toy_list(){
             html.push(`<td>${record.fields.Condition}</td>`)
             html.push(`<td>${record.fields.Category}</td>`)
             //Code buttons to separate pages
-            html.push(`<td><button id="CheckOutButton" onclick="check_toys_out('${record.id}')">Check Out</button></td>`)
+            console.log('REcord ID:', record.id)
+            html.push(`<td><button id="CheckOutButton" onclick="check_toys_out(${record.id})">Check Out</button></td>`)
             html.push('</tr>')
         }   
 
@@ -180,12 +181,7 @@ async function check_toys_out(id){
     </div>
 
     `
-    console.log("New function call id=", id)    
-
-
-    const update_response = await server_request({mode:"update_checkedout",id:id})
-
-    console.log('update success?',update_response)
+console.log("New function call id=", id)    
 
     const response = await server_request({mode:"get_reports_checkedout"})
 
