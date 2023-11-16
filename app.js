@@ -193,19 +193,23 @@ async function check_toys_out(id){
         //we got data back
 
         const html = ['<table border="2"><tr>']
+        html.push('<th>Toy</th>')
         html.push('<th>Bin</th>')
-        html.push('<th>Bin (from Bin)</th>')
-        html.push('<th>Checkout_date</th>')
-        html.push('<th>employee</th>')
+        html.push('<th>Tags</th>')
+        html.push('<th>Quantity</th>')
+        html.push('<th>Condition</th>')
+        html.push('<th>Category</th>')
 
         html.push('</tr>')
 
         for(const record of response.records){
             html.push('<tr>')
+            html.push(`<td>${record.fields.Toy}</td>`)
             html.push(`<td>${record.fields.Bin}</td>`)
-            html.push(`<td>${record.fields.Checkout_date}</td>`)
-            html.push(`<td>${record.fields.employee}</td>`)
-
+            html.push(`<td>${record.fields.Tags}</td>`)
+            html.push(`<td>${record.fields.Quantity}</td>`)
+            html.push(`<td>${record.fields.Condition}</td>`)
+            html.push(`<td>${record.fields.Category}</td>`)
             html.push('</tr>')
         }   
 
