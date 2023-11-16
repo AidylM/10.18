@@ -135,7 +135,7 @@ async function toy_list(){
             html.push(`<td>${record.fields.Condition}</td>`)
             html.push(`<td>${record.fields.Category}</td>`)
             //Code buttons to separate pages
-            html.push(`<td><button id="CheckOutButton" onclick="check_toys_out('${record.id}')">Check Out</button></td>`)
+            html.push(`<td><button id="CheckOutButton" onclick="check_toys_out(id)">Check Out</button></td>`)
             html.push('</tr>')
         }   
 
@@ -180,12 +180,7 @@ async function check_toys_out(id){
     </div>
 
     `
-    console.log("New function call id=", id)    
-
-
-    const update_response = await server_request({mode:"update_checkedout",id:id})
-
-    console.log('update success?',update_response)
+console.log("New function call id=", id)    
 
     const response = await server_request({mode:"get_reports_checkedout"})
 
@@ -193,19 +188,23 @@ async function check_toys_out(id){
         //we got data back
 
         const html = ['<table border="2"><tr>']
+        html.push('<th>Toy</th>')
         html.push('<th>Bin</th>')
-        html.push('<th>Bin (from Bin)</th>')
-        html.push('<th>Checkout_date</th>')
-        html.push('<th>employee</th>')
+        html.push('<th>Tags</th>')
+        html.push('<th>Quantity</th>')
+        html.push('<th>Condition</th>')
+        html.push('<th>Category</th>')
 
         html.push('</tr>')
 
         for(const record of response.records){
             html.push('<tr>')
+            html.push(`<td>${record.fields.Toy}</td>`)
             html.push(`<td>${record.fields.Bin}</td>`)
-            html.push(`<td>${record.fields.Checkout_date}</td>`)
-            html.push(`<td>${record.fields.employee}</td>`)
-
+            html.push(`<td>${record.fields.Tags}</td>`)
+            html.push(`<td>${record.fields.Quantity}</td>`)
+            html.push(`<td>${record.fields.Condition}</td>`)
+            html.push(`<td>${record.fields.Category}</td>`)
             html.push('</tr>')
         }   
 
@@ -320,59 +319,6 @@ async function toys_conditions(){
 
     
 }
-
-async function toys_conditions(){
-    // create HTML div for data
-
-    tag("canvas").innerHTML= `
-    <div class="page">
-
-    <h2> Poor Condition Toys </h2>
-    <div id="toy_list_panel">
-    <i class="fas fa-spinner fa-pulse"></i>
-    </div>
-    </div>
-
-    `
-    
-
-    const response = await server_request({mode:"get_reports_condition"})
-
-    if (response.status==='success'){
-        //we got data back
-
-        const html = ['<table border="2"><tr>']
-        html.push('<th>Toy</th>')
-        html.push('<th>Bin</th>')
-        html.push('<th>Tags</th>')
-        html.push('<th>Quantity</th>')
-        html.push('<th>Condition</th>')
-        html.push('<th>Category</th>')
-        html.push('</tr>')
-
-        for(const record of response.records){
-            html.push('<tr>')
-            html.push(`<td>${record.fields.Toy}</td>`)
-            html.push(`<td>${record.fields.Bin}</td>`)
-            html.push(`<td>${record.fields.Tags}</td>`)
-            html.push(`<td>${record.fields.Quantity}</td>`)
-            html.push(`<td>${record.fields.Condition}</td>`)
-            html.push(`<td>${record.fields.Category}</td>`)
-
-            html.push('</tr>')
-        }   
-
-
-        tag("toy_list_panel").innerHTML = html.join("")
-
-    }else{
-        tag("toy_list_panel").innerHTML = "There was an error getting the task data"
-    }
-
-
-    
-}
-
 
 async function request_time_off(){
     //This is an example of embedding a data form that is created in Airtable. This form allows a user to make a "time off" request. This form is not secure. Anyone with the link or the id for the form can use it to enter data into Airtable. However, it is easy to build and share an Airtable form. 
