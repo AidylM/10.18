@@ -50,7 +50,7 @@ const authenticated_menu=[
     //This menu item adds the menu item for updating an inventory count. Notice how a parameter is passed to the "ice_cream_inventory" function,
     //the remaining menu items are added
     {label:"Toy Inventory Summary",home:"Inventory",function:"navigate({fn:'toy_list'})", roles:["owner","administrator"]},
-    {label:"Check Toys In",home:"Inventory",function:"navigate({fn:'check_toys_in'})", roles:["owner","administrator"]},
+    // {label:"Check Toys In",home:"Inventory",function:"navigate({fn:'check_toys_in'})", roles:["owner","administrator"]},
     {label:"Check Toys Out",home:"Inventory",function:"navigate({fn:'check_toys_out'})", roles:["owner","administrator"]},
     {label:"Employee List",function:"navigate({fn:'employee_list'})"},
     {label:"Admin Tools",id:"menu2", roles:["manager","owner","administrator"], menu:[
@@ -147,27 +147,27 @@ async function toy_list(){
 
 }
 
-async function check_toys_in(params){
-    console.log('check_toys_in')
+// async function check_toys_in(params){
+//     console.log('check_toys_in')
 
-    if(!logged_in()){show_home();return}//in case followed a link after logging out. This prevents the user from using this feature when they are not authenticated.
+//     if(!logged_in()){show_home();return}//in case followed a link after logging out. This prevents the user from using this feature when they are not authenticated.
 
-    //First we hide the menu
-    hide_menu()
+//     //First we hide the menu
+//     hide_menu()
 
-    //This function is set up recursively to build the page for working with inventory. The first time the function is called, the HTML shell is created for displaying either the inventory form for recording the count or the inventory report. Note that this will only be built if there is a "style" property set when the function is called. Once the shell is created, the function is called again to either built the form for recording an inventory count or create the summary report.
-    if(!params){
-        //building the HTML shell
-        tag("canvas").innerHTML=` 
-            <div class="page">
-                <div id="inventory-title" style="text-align:center"><h2>Check Toys In</h2></div>
-                <div id="inventory-message" style="width:100%"></div>
-                <div id="inventory_panel"  style="width:100%">
-                </div>
-            </div>  
-        `
-    }
-}
+//     //This function is set up recursively to build the page for working with inventory. The first time the function is called, the HTML shell is created for displaying either the inventory form for recording the count or the inventory report. Note that this will only be built if there is a "style" property set when the function is called. Once the shell is created, the function is called again to either built the form for recording an inventory count or create the summary report.
+//     if(!params){
+//         //building the HTML shell
+//         tag("canvas").innerHTML=` 
+//             <div class="page">
+//                 <div id="inventory-title" style="text-align:center"><h2>Check Toys In</h2></div>
+//                 <div id="inventory-message" style="width:100%"></div>
+//                 <div id="inventory_panel"  style="width:100%">
+//                 </div>
+//             </div>  
+//         `
+//     }
+// }
 
 async function check_toys_out(id){
     tag("canvas").innerHTML= `
