@@ -51,7 +51,7 @@ const authenticated_menu=[
     //the remaining menu items are added
     {label:"Toy Inventory Summary",home:"Inventory",function:"navigate({fn:'toy_list'})", roles:["owner","administrator"]},
     // {label:"Check Toys In",home:"Inventory",function:"navigate({fn:'check_toys_in'})", roles:["owner","administrator"]},
-    {label:"Check Toys Out",home:"Inventory",function:"navigate({fn:'check_toys_out'})", roles:["owner","administrator"]},
+    {label:"Checked Out Toys",home:"Inventory",function:"navigate({fn:'checked_out_toys'})", roles:["owner","administrator"]},
     {label:"Employee List",function:"navigate({fn:'employee_list'})"},
     {label:"Admin Tools",id:"menu2", roles:["manager","owner","administrator"], menu:[
         {label:"Update User",function:"update_user()",panel:"update_user"},
@@ -135,7 +135,7 @@ async function toy_list(){
             html.push(`<td>${record.fields.Condition}</td>`)
             html.push(`<td>${record.fields.Category}</td>`)
             //Code buttons to separate pages
-            html.push(`<td><button id="CheckOutButton" onclick="check_toys_out('${record.id}')">Check Out</button></td>`)
+            html.push(`<td class="center-button"><button id="CheckOutButton" onclick="checked_out_toys('${record.id}')">Check Out</button></td>`)
             html.push('</tr>')
         }   
 
@@ -169,7 +169,7 @@ async function toy_list(){
 //     }
 // }
 
-async function check_toys_out(id){
+async function checked_out_toys(id){
     tag("canvas").innerHTML= `
     <div class="page">
 
@@ -199,6 +199,7 @@ async function check_toys_out(id){
         html.push('<th>Quantity</th>')
         html.push('<th>Condition</th>')
         html.push('<th>Category</th>')
+        html.push('<th>Check Toy Back In</th>')
 
         html.push('</tr>')
 
@@ -210,6 +211,7 @@ async function check_toys_out(id){
             html.push(`<td>${record.fields.Quantity}</td>`)
             html.push(`<td>${record.fields.Condition}</td>`)
             html.push(`<td>${record.fields.Category}</td>`)
+            html.push(`<td class="center-button"><button id="CheckInButton" onclick="checked_in_toys('${record.id}')">Check In</button></td>`)
             html.push('</tr>')
         }   
 
