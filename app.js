@@ -187,7 +187,7 @@ async function check_toys_out(id){
 
     console.log('update success?',update_response)
 
-    const response = await server_request({mode:"get_reports_checked"})
+    const response = await server_request({mode:"get_reports_checkedout"})
 
     if (response.status==='success'){
         //we got data back
