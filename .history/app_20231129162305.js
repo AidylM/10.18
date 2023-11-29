@@ -51,7 +51,7 @@ const authenticated_menu=[
     //the remaining menu items are added
     {label:"Toy Inventory Summary",home:"Inventory",function:"navigate({fn:'toy_list'})", roles:["owner","administrator","employee"]},
     // {label:"Check Toys In",home:"Inventory",function:"navigate({fn:'check_toys_in'})", roles:["owner","administrator"]},
-    {label:"Checked Out Toys",home:"Inventory",function:"navigate({fn:'checked_out_toys'})", roles:["owner","administrator","employee", "user"]},
+    {label:"Checked Out Toys",home:"Inventory",function:"navigate({fn:'checked_out_toys'})", roles:["owner","administrator","employee"]},
     {label:"Employee List",function:"navigate({fn:'employee_list'})" , roles:["manager","owner","administrator"]},
     {label:"Admin Tools",id:"menu2", roles:["manager","owner","administrator"], menu:[
         {label:"Update User",function:"update_user()",panel:"update_user"},
