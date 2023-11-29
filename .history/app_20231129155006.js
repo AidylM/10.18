@@ -241,41 +241,6 @@ async function checked_in_toys(id){
 
     console.log('update success?',update_response)
 
-    const response = await server_request({mode:"get_reports_checkedout"})
-
-    if (response.status==='success'){
-        //we got data back
-
-        const html = ['<table border="2"><tr>']
-        html.push('<th>Toy</th>')
-        html.push('<th>Bin</th>')
-        html.push('<th>Tags</th>')
-        html.push('<th>Quantity</th>')
-        html.push('<th>Condition</th>')
-        html.push('<th>Category</th>')
-        html.push('<th>Check Toy Back In</th>')
-
-        html.push('</tr>')
-
-        for(const record of response.records){
-            html.push('<tr>')
-            html.push(`<td>${record.fields.Toy}</td>`)
-            html.push(`<td>${record.fields.Bin}</td>`)
-            html.push(`<td>${record.fields.Tags}</td>`)
-            html.push(`<td>${record.fields.Quantity}</td>`)
-            html.push(`<td>${record.fields.Condition}</td>`)
-            html.push(`<td>${record.fields.Category}</td>`)
-            html.push(`<td class="center-button"><button id="CheckInButton" onclick="checked_in_toys('${record.id}')">Check In</button></td>`)
-            html.push('</tr>')
-        }   
-
-
-        tag("toy_list_panel").innerHTML = html.join("")
-
-    }else{
-        tag("toy_list_panel").innerHTML = "There was an error getting the task data"
-    }
-}
 async function overdue_toys(){
     // create HTML div for data
 
