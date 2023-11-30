@@ -6,7 +6,7 @@ const gas_end_point = 'https://script.google.com/macros/s/'+gas_deployment_id+'/
 //This global variable defines the first two navigation items in the menu. In this app there are only two main navigation items "Home" and "Locations". These two menu items are visible regardless of login status.  
 const nav_menu=[
     //Note that a menu item is added by inserting an object for that menu item. The 'label' is the text that the user sees for that menu option. The function is the javascript function invoked when selecting that option. Here we insert the "home" and "locations" menu items. Both initiate a call to the navigate function which loads the appropriate page. The navigate function is used to help ensure smooth navigation. It allows the user to use the back botton in their browser when navigating between pages on the site (without navigating out ot the site). The navigate can accept parameters that can be passed to the function called by navigate.
-    {label:"Home",function:"navigate({fn:'show_home'})", roles:["owner","administrator","employee", "user", "shift lead"]},
+    {label:"Home",function:"navigate({fn:'show_home'})"},
     
 ]
 
@@ -35,13 +35,13 @@ const authenticated_menu=[
         {label:"Personal Data",function:"navigate({fn:'personal_data'})"},
     ]},
     //This menu item allows the user to logout
-    {label:"Logout",function:"logout()", home:"Logout", roles:["owner","administrator","employee", "user", "shift lead"]},
+    {label:"Logout",function:"logout()", home:"Logout"},
     //This menu item builds a sub menu that provides the user with the functionality to request time off and see their requests
     //{label:"Time Off",id:"menu1",menu:[
     //    {label:"Request Time Off",function:"navigate({fn:'request_time_off'})"}, 
     //    {label:"My Requests",function:"navigate({fn:'show_time_off'})"}, 
     //]},
-    {label:"Reports",id:"menu1",roles:["manager","administrator"], menu:[
+    {label:"Reports",id:"menu1",menu:[
         {label:"Toys Overdue",function:"navigate({fn:'overdue_toys'})"}, 
         {label:"Conditions",function:"navigate({fn:'toys_conditions'})"}, 
     ]},
@@ -52,7 +52,7 @@ const authenticated_menu=[
     {label:"Toy Inventory Summary",home:"Inventory",function:"navigate({fn:'toy_list'})", roles:["owner","administrator","employee"]},
     // {label:"Check Toys In",home:"Inventory",function:"navigate({fn:'check_toys_in'})", roles:["owner","administrator"]},
     {label:"Checked Out Toys",home:"Inventory",function:"navigate({fn:'checked_out_toys'})", roles:["owner","administrator","employee"]},
-    {label:"Employee List",function:"navigate({fn:'employee_list'})" , roles:["manager","owner","administrator"]},
+    {label:"Employee List",function:"navigate({fn:'employee_list'})"},
     {label:"Admin Tools",id:"menu2", roles:["manager","owner","administrator"], menu:[
         {label:"Update User",function:"update_user()",panel:"update_user"},
     ]},
