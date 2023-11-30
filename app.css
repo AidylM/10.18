@@ -16,10 +16,24 @@ h1 {
 }
 
 h2{
+    text-decoration: underline;
     margin-top:0;
     margin-bottom:.5rem;
-    color: maroon;
+    color: white;
 }
+
+th {
+    color: white;
+    display: table-cell;
+    vertical-align: inherit;
+    font-weight: bold;
+    text-align: -internal-center;
+}
+
+td { 
+    color: white
+}
+
 .center-screen {
     position: absolute;
     top: 50%;
@@ -37,7 +51,7 @@ h2{
 }
 
 .page{
-    background-color: rgb(245, 245, 234);
+    background-color: rgb(219, 162, 228);
     display:inline-block;
     padding:1rem;
     align-items: stretch;
