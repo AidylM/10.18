@@ -31,8 +31,8 @@ const authenticated_menu=[
     //The first item loads the user's name (get_user_name) which is the label for a top-level menu which is built for the user functions
     {label:get_user_name,id:"user-menu", menu:[
         //the user functions include the ability to change their password and edit their personal data
-        {label:"Change Password",function:"change_password()",panel: "password_panel"},
-        {label:"Personal Data",function:"navigate({fn:'personal_data'})"},
+        {label:"Change Password",function:"change_password()",panel: "password_panel", roles:["manager","owner","administrator"]},
+        {label:"Personal Data",function:"navigate({fn:'personal_data'})", roles:["manager","owner","administrator"]},
     ]},
     //This menu item allows the user to logout
     {label:"Logout",function:"logout()", home:"Logout", roles:["owner","administrator","employee", "user", "shift lead"]},
