@@ -19,7 +19,7 @@ form {
 #menu{
     position:absolute;
     display:none;
-    background-color: rgb(99, 163, 232);
+    background-color: rgb(255,203,5);
     color:rgb(black);
     border:1px;
     border-color: black;
@@ -46,7 +46,7 @@ form {
 .menu-menu{
     padding-top:.2rem;
     cursor: pointer;
-    color: yellow;
+    color: black;
 
 }
 .menu-menu i{
@@ -56,10 +56,10 @@ form {
 .menu-item{
     padding: .2rem 0 .2rem 0 ;
     cursor: pointer;
-    color: yellow;
+    color: black;
 }
 .menu-item:hover{
-  background-color: lightslategray;
+  background-color: whitesmoke;
 }
 .sub-menu{
     display:none;

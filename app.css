@@ -19,11 +19,11 @@ h2{
     text-decoration: underline;
     margin-top:0;
     margin-bottom:.5rem;
-    color: white;
+    color: black;
 }
 
 th {
-    color: white;
+    color: black;
     display: table-cell;
     vertical-align: inherit;
     font-weight: bold;
@@ -31,7 +31,7 @@ th {
 }
 
 td { 
-    color: white
+    color: black
 }
 
 .center-screen {
@@ -51,7 +51,7 @@ td {
 }
 
 .page{
-    background-color: rgb(219, 162, 228);
+    background-color: rgb(92,155,211);
     display:inline-block;
     padding:1rem;
     align-items: stretch;
